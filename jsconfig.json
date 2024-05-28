@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./src",
+    "paths": {
+      "@tabNavigation/*": ["tabNavigation/*"],
+      "@layout/*": ["shared/layout/*"],
+      "@modules/*": ["modules/*"],
+      "@components/*": ["components/*"],
+
+      "@hooks/*": ["shared/hooks/*"],
+      "@lib/*": ["shared/lib/*"],
+      "@helpers/*": ["shared/helpers/*"],
+      "@utils/*": ["shared/utils/*"],
+      "@rejex/*": ["shared/rejex/*"],
+      "@ui/*": ["shared/ui/*"],
+			
+      "@context/*": ["shared/context/*"],
+      "@store/*": ["shared/store/*"],
+			
+      "@assets/*": ["shared/assets/*"],
+      "@styles/*": ["shared/assets/styles/*"],
+
+      "@data/*": ["data/*"],
+    }
+  }
+}
