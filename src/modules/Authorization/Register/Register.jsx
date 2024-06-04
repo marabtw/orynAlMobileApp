@@ -151,7 +151,9 @@ const Register = () => {
           <Text style={{ color: "#989898" }}>Уже зарегистрированы?</Text>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate(NAVIGATIONS.Authorization.login)}
+            onPress={() =>
+              navigation.navigate(NAVIGATIONS.Profile.AuthStack.login)
+            }
           >
             <Text style={{ color: "#3783fb" }}>Войдите</Text>
           </TouchableOpacity>

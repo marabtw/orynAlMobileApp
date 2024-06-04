@@ -50,7 +50,7 @@ const TableCard = ({ tableData, selectedTableId, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    width: "40%",
+    width: "100%",
     paddingHorizontal: 5,
     paddingVertical: 10,
     borderWidth: 3,

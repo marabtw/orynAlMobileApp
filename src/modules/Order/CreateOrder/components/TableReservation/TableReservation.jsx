@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     marginTop: 20,
+		gap: 20,
   },
   tableCardContainer: {
     flex: 1,

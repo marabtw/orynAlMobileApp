@@ -21,6 +21,10 @@ const RecentRestaurantsSlider = () => {
     const getRestaurants = async () => {
       let recentRestaurants = await AsyncStorage.getItem("recentRestaurants")
       recentRestaurants = recentRestaurants ? JSON.parse(recentRestaurants) : []
+			console.log(recentRestaurants)
+      recentRestaurants.filter((el) => {
+        el
+      })
       setRestaurants(recentRestaurants)
     }
 
@@ -41,7 +45,7 @@ const RecentRestaurantsSlider = () => {
               navigation.navigate(NAVIGATIONS.Main.OrdersStack.createOrder, {
                 restaurant: {
                   id: el.id,
-                  icon: el.icon.route,
+                  icon: el.ico?.route || "",
                   name: el.name,
                 },
               })
@@ -73,7 +77,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   text: {
-    // textAlign: "center",
     marginTop: 5,
   },
 })

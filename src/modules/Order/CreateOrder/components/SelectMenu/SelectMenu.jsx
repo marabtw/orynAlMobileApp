@@ -88,8 +88,8 @@ const SelectMenu = ({ restaurantId, getFoodForCart, selectedFoodsId }) => {
         style={{
           flex: 1,
           flexDirection: "column",
-          gap: 100,
           marginHorizontal: 20,
+					gap: 20,
         }}
       >
         <FoodCategoriesSlider

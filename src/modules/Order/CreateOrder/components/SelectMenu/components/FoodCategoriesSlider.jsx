@@ -10,11 +10,11 @@ const FoodCategoriesSlider = ({ categories, getCategory }) => {
       <TouchableOpacity
         style={{
           padding: 5,
-          height: 150,
+          height: 80,
           aspectRatio: 1,
           borderWidth: 1,
           borderColor: "#c4c4c4",
-          borderRadius: 20,
+          borderRadius: 10,
           shadowColor: "rgba(0,0,0,.2)",
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: 1,
@@ -51,7 +51,7 @@ const FoodCategoriesSlider = ({ categories, getCategory }) => {
           key={category}
           style={{
             padding: 5,
-            height: 150,
+            height: 80,
             aspectRatio: 1,
             borderWidth: 1,
             borderColor: "#c4c4c4",

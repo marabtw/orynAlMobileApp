@@ -25,7 +25,6 @@ const Login = () => {
   const handleSignin = async (e) => {
     e.preventDefault()
     if (!isValid()) {
-			console.log("error")
       return
     }
     signin({ email, password })
@@ -70,7 +69,7 @@ const Login = () => {
         />
         <TouchableOpacity
           style={{ alignItems: "flex-end" }}
-          onPress={() => navigation.navigate(NAVIGATIONS.Authorization.refresh)}
+          onPress={() => navigation.navigate(NAVIGATIONS.Profile.AuthStack.refresh)}
         >
           <Text style={{ color: "#989898" }}>Забыли пароль?</Text>
         </TouchableOpacity>
@@ -100,7 +99,7 @@ const Login = () => {
           <Text style={{ color: "#989898" }}>Нет аккаунта? </Text>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate(NAVIGATIONS.Authorization.register)
+              navigation.navigate(NAVIGATIONS.Profile.AuthStack.register)
             }
           >
             <Text style={{ color: "#3783fb" }}>Зарегистрируйтесь</Text>

@@ -6,14 +6,15 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
   return (
     <View
       style={{
-        paddingHorizontal: 30,
-        paddingVertical: 40,
+        position: "relative",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-between",
-        width: "100%",
-        height: 362,
-        borderRadius: 50,
+        width: "40%",
+        height: 200,
+        borderRadius: 20,
         backgroundColor: "#FFFFFF",
         borderWidth: 1,
         borderColor: "#c4c4c4",
@@ -29,10 +30,8 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
     >
       <View
         style={{
-          position: "absolute",
-          top: 0,
-          transform: [{ translateY: -50 }],
-          width: 150,
+          position: "relative",
+          width: "50%",
           aspectRatio: 1,
           borderRadius: 999,
           overflow: "hidden",
@@ -42,7 +41,7 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
         {foodData?.photo && (
           <Image
             source={{ uri: foodData.photo.route }}
-            style={{ flex: 1, aspectRatio: 1 }}
+            style={{ aspectRatio: 1 }}
             resizeMode="cover"
           />
         )}
@@ -50,39 +49,36 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
       <View
         style={{
           width: "100%",
-          position: "relative",
+          position: "absolute",
           before: {
             width: 10,
             aspectRatio: 1,
             position: "absolute",
             right: 0,
-            top: "50%",
-            transform: [{ translateY: "-50%" }],
+            top: 0,
             borderRadius: 999,
             backgroundColor: foodData.available ? "#c4c4c4" : "#b91c1c",
           },
         }}
       />
-      <View style={{ width: 238, alignItems: "center", marginTop: 10 }}>
+      <View style={{ flexDirection: "column", gap: 10, width: "100%", alignItems: "center"}}>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: "800",
-            lineHeight: 24,
-            marginBottom: 10,
+            lineHeight: 20,
           }}
         >
           {foodData.name}
         </Text>
         <View
           style={{
-            width: 193,
+            width: "70%",
             height: 2,
-            marginBottom: 10,
             backgroundColor: "#000000",
           }}
         />
-        <Text style={{ fontSize: 15, lineHeight: 24, overflow: "hidden" }}>
+        <Text style={{ fontSize: 12, lineHeight: 16, overflow: "hidden" }}>
           {foodData.description}
         </Text>
       </View>
@@ -110,14 +106,14 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
               })
             }}
           >
-            <Ionicons name="trash-outline" />
+            <Ionicons name="trash-outline" size={20} color={"white"} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={{
               justifyContent: "center",
               alignItems: "center",
-              width: 50,
+              width: 30,
               aspectRatio: 1,
               backgroundColor: "#6AA7FC",
               borderRadius: 999,
@@ -134,10 +130,10 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
               })
             }}
           >
-            <Ionicons name="add-circle-outline" />
+            <Ionicons name="add-circle-outline" size={20} color={"white"} />
           </TouchableOpacity>
         )}
-        <Text style={{ fontSize: 24, fontWeight: "600", lineHeight: 24 }}>
+        <Text style={{ fontSize: 16, fontWeight: "600", lineHeight: 24 }}>
           {foodData.price} ₸
         </Text>
       </View>

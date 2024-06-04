@@ -10,6 +10,8 @@ import CartItem from "./components/CartItem"
 const Cart = () => {
   const [cart, setCart] = useState({})
 
+	
+
   return (
     <View style={{ flex: 1, position: "relative" }}>
       <ScrollView
