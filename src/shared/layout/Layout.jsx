@@ -1,12 +1,19 @@
 import { useRoute } from "@react-navigation/native"
-import { StatusBar, View, SafeAreaView, ScrollView } from "react-native"
+import { StatusBar, View, SafeAreaView } from "react-native"
 
-import { NAVIGATIONS } from "@tabNavigation/Navigation.config"
+import { NAVIGATIONS } from "@navigation/Navigation.config"
+import { useEffect, useState } from "react"
 
 const Layout = ({ children }) => {
   const route = useRoute()
-  const isProfile = route.name === NAVIGATIONS.Profile
-  console.log(route)
+  const [isProfile, setIsProfile] = useState(
+    route.name === NAVIGATIONS.Profile.myProfile
+  )
+
+  useEffect(() => {
+    setIsProfile(route.name === NAVIGATIONS.Profile.myProfile)
+  }, [route])
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar

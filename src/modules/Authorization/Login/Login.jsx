@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View, ScrollView } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
 import { AuthContext } from "@context/AuthContext"
-import { NAVIGATIONS } from "@tabNavigation/Navigation.config"
+import { NAVIGATIONS } from "@navigation/Navigation.config"
 import { LinearGradient } from "expo-linear-gradient"
 
 import { isValidEmail } from "@helpers/index"

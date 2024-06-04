@@ -5,7 +5,7 @@ import { axios } from "@lib/axios"
 
 import { jwtDecode } from "jwt-decode"
 
-import { NAVIGATIONS } from "@tabNavigation/Navigation.config"
+import { NAVIGATIONS } from "@navigation/Navigation.config"
 import {
   signinRequest,
   signupRequest,
@@ -13,7 +13,6 @@ import {
 } from "@modules/Authorization/api"
 import { getProfileRequest } from "@modules/Profile/api"
 
-// import { removeWildcard } from "@helpers/index"
 // import { useToast } from "@hooks"
 
 const AuthContext = createContext()
@@ -100,18 +99,15 @@ const AuthContextProvider = ({ children }) => {
   const signin = async ({ email, password }) => {
     try {
       const { data } = (await signinRequest(email, password)).data
+      const newDecodedToken = jwtDecode(data.access_token)
+      if (newDecodedToken.role !== "user") {
+        console.log("Вы не можете использовать эту приложению")
+        return
+      }
       await AsyncStorage.setItem("accessToken", data.access_token)
       await AsyncStorage.setItem("refreshToken", data.refresh_token)
-      const newDecodedToken = jwtDecode(data.access_token)
-      if (newDecodedToken.role !== "user") return
       updateUser(newDecodedToken)
-      if (newDecodedToken.role === "admin") {
-        navigation.navigate(NAVIGATIONS.Management.allRestaurants)
-      } else if (newDecodedToken.role === "owner") {
-        navigation.navigate(NAVIGATIONS.Restaurant.myRestaurants)
-      } else {
-        navigation.navigate(NAVIGATIONS.Profile)
-      }
+      navigation.navigate(NAVIGATIONS.Profile.myProfile)
       // showNotification("Авторизвация прошла успешно", "success")
     } catch (err) {
       // showNotification("Не удалось войти. Ошибка: ",err.toString(), "error")

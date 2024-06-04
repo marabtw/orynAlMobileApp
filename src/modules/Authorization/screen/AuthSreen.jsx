@@ -5,20 +5,17 @@ import Layout from "@layout/Layout"
 import Register from "../Register/Register"
 import Login from "../Login/Login"
 import Refresh from "../Refresh/Refresh"
+import { NAVIGATIONS } from "@navigation/Navigation.config"
 
 const AuthSreen = () => {
   const route = useRoute()
-  return (
-    <Layout>
-      {route.name === "login" ? (
-        <Login />
-      ) : route.name === "register" ? (
-        <Register />
-      ) : (
-        <Refresh />
-      )}
-    </Layout>
-  )
+  if (route.name === NAVIGATIONS.Profile.AuthStack.login) {
+    return <Login />
+  } else if (route.name === NAVIGATIONS.Profile.AuthStack.register) {
+    return <Register />
+  } else if (route.name === NAVIGATIONS.Profile.AuthStack.refresh) {
+    return <Refresh />
+  }
 }
 
 export default AuthSreen

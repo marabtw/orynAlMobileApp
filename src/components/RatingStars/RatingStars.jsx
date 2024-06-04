@@ -1,20 +1,17 @@
-import {
-  StarFullIcon,
-  StarHalfIcon,
-  StarEmptyIcon,
-} from "../../ui/icons/icons"
+import { View } from "react-native"
 
-const RatingStars = ({ fontSize, rate }) => {
+import { Ionicons } from "@ui/icons/icons"
 
-  return (
-    <div className="flex" style={{ fontSize, color: "#ffb800" }}>
-      {Array.from([0, 1, 2, 3, 4], (i) => {
-        if (i < rate) return <StarFullIcon key={i} />
-        if (i === rate) return <StarHalfIcon key={i}/>
-        else return <StarEmptyIcon key={i} />
-      })}
-    </div>
-  )
+const RatingStard = ({ rate, size = 20 }) => {
+  const stars = []
+
+  for (let i = 1; i <= 5; i++) {
+    const iconName =
+      i <= rate ? "star" : i - rate < 1 ? "star-half-outline" : "star-outline"
+    stars.push(<Ionicons key={i} name={iconName} size={size} color="gold" />)
+  }
+
+  return <View style={{ flexDirection: "row" }}>{stars}</View>
 }
 
-export default RatingStars
+export default RatingStard

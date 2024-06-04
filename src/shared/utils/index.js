@@ -7,6 +7,29 @@ export const IsArraysEqualByIdWithSet = (arr1, arr2) => {
   return [...idSet1].every((id) => idSet2.has(id))
 }
 
+export const isArraysEqualDeep = (arr1, arr2) => {
+  if (arr1.length !== arr2.length) return false
+
+  const compareObjects = (obj1, obj2) => {
+    const keys1 = Object.keys(obj1)
+    const keys2 = Object.keys(obj2)
+
+    if (keys1.length !== keys2.length) return false
+
+    return keys1.every((key) => {
+      const val1 = obj1[key]
+      const val2 = obj2[key]
+
+      if (val1 instanceof Object && val2 instanceof Object) {
+        return compareObjects(val1, val2)
+      }
+      return val1 === val2
+    })
+  }
+
+  return arr1.every((item, index) => compareObjects(item, arr2[index]))
+}
+
 export const isObjectEmpty = (object) => {
   for (const prop in object) {
     if (Object.hasOwn(object, prop)) {
@@ -72,3 +95,4 @@ export const formatTimeString = (timeString) => {
   const minutes = date.getMinutes().toString().padStart(2, "0")
   return `${hours}:${minutes}`
 }
+

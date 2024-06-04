@@ -2,14 +2,14 @@ import { useContext, useState } from "react"
 import { Text, TouchableOpacity, View, ScrollView } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
-import { NAVIGATIONS } from "@tabNavigation/Navigation.config"
+import { NAVIGATIONS } from "@navigation/Navigation.config"
 import { AuthContext } from "@context/AuthContext"
-import { LinearGradient } from "expo-linear-gradient"
 
 import { isValidEmail, isValidPhone } from "@helpers/index"
 
-import AuthFormInput from "../components/AuthFormInput"
+import { LinearGradient } from "expo-linear-gradient"
 import { Button } from "@rneui/base"
+import AuthFormInput from "../components/AuthFormInput"
 
 const Register = () => {
   const { signup } = useContext(AuthContext)

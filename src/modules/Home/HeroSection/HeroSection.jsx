@@ -1,14 +1,14 @@
 import React from "react"
 import { View, Text } from "react-native"
 
-import Search from "./components/Search"
+import SearchButton from "./components/SearchButton"
 import PopularRestaurantsSlider from "./components/PopularRestaurantsSlider"
 import RecentRestaurantsSlider from "./components/RecentRestaurantsSlider"
 
 const HeroSection = () => {
   return (
     <View>
-      <Search />
+      <SearchButton />
       <View
         style={{
           backgroundColor: "white",

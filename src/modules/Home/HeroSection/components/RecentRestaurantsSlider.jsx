@@ -1,41 +1,65 @@
-import React from "react"
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native"
+import { useContext, useEffect, useState } from "react"
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { UIContext } from "@context/UIContext"
+import { useNavigation } from "@react-navigation/native"
+import { NAVIGATIONS } from "@navigation/Navigation.config"
 
 const RecentRestaurantsSlider = () => {
+  const navigation = useNavigation()
+  const [restaurants, setRestaurants] = useState([])
+  const { recentRestaurantsSliderTrigger } = useContext(UIContext)
+
+  useEffect(() => {
+    const getRestaurants = async () => {
+      let recentRestaurants = await AsyncStorage.getItem("recentRestaurants")
+      recentRestaurants = recentRestaurants ? JSON.parse(recentRestaurants) : []
+      setRestaurants(recentRestaurants)
+    }
+
+    getRestaurants()
+  }, [recentRestaurantsSliderTrigger])
+
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      style={styles.scrollContainer}
-    >
-      <View style={styles.restaurantContainer}>
-        <Image style={styles.image} source={{ uri: "https:" }} />
-        <Text style={styles.text}>Restaurant 1</Text>
-      </View>
-      <View style={styles.restaurantContainer}>
-        <Image style={styles.image} source={{ uri: "https:" }} />
-        <Text style={styles.text}>Restaurant 2</Text>
-      </View>
-      <View style={styles.restaurantContainer}>
-        <Image style={styles.image} source={{ uri: "https:" }} />
-        <Text style={styles.text}>Restaurant 3</Text>
-      </View>
-      <View style={styles.restaurantContainer}>
-        <Image style={styles.image} source={{ uri: "https:" }} />
-        <Text style={styles.text}>Restaurant 3</Text>
-      </View>
-      <View style={styles.restaurantContainer}>
-        <Image style={styles.image} source={{ uri: "https:" }} />
-        <Text style={styles.text}>Restaurant 3</Text>
-      </View>
-    </ScrollView>
+    restaurants?.length > 0 && (
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.scrollContainer}
+      >
+        {restaurants.map((el) => (
+          <TouchableOpacity
+            style={styles.restaurantContainer}
+            onPress={() => {
+              navigation.navigate(NAVIGATIONS.Main.OrdersStack.createOrder, {
+                restaurant: {
+                  id: el.id,
+                  icon: el.icon.route,
+                  name: el.name,
+                },
+              })
+            }}
+          >
+            <Image style={styles.image} source={{ uri: el.icon }} />
+            <Text style={styles.text}>{el.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    )
   )
 }
 
 const styles = StyleSheet.create({
   scrollContainer: {
     flexDirection: "row",
-		paddingBottom: 20,
+    paddingBottom: 20,
   },
   restaurantContainer: {
     marginRight: 15,

@@ -1,40 +1,141 @@
-import { CallIcon, ClockIcon } from "../../ui/icons/icons"
+import React from "react"
+import { View, Text, Image, StyleSheet } from "react-native"
 
-const RestaurantBriefInfo = ({ data, className }) => {
+import { Ionicons } from "@ui/icons/icons"
+import { formatTimeString } from "@utils/index"
+
+const RestaurantBriefInfo = ({ data }) => {
+  const getService = (name) => {
+    return (
+      <View style={styles.serviceContainer}>
+        <Image source={""} style={styles.serviceIcon} />
+        <Text>{name}</Text>
+      </View>
+    )
+  }
+
   return (
-    <div className={`w-full bg-white rounded-[20px] ${className}`}>
-      <div className="grid grid-cols-[133px_1fr] gap-x-[20px] gap-y-[10px] max-md:grid-cols-1">
-        <img src={data.icon} alt="icon" className="w-[133px] rounded-full max-md:hidden" />
-        <div className="flex flex-col gap-[10px]">
-          <h1 className="text-[35px] font-[600] leading-[52.5px]">
-            {data.fullName}
-          </h1>
-          <p className="text-[20px] leading-[30px] font-[500]">
-            {data.description}
-          </p>
-        </div>
-        <div></div>
-        <div className="flex gap-[15px] flex-wrap">
-          <div className="flex items-center gap-[10px] px-[40px] py-[10px] bg-gradient-to-t from-[#599AFF] to-[#4577FB] text-white rounded-[15px] text-[15px]">
-            <CallIcon />
-            <span>{data.call}</span>
-          </div>
-          <div className="flex items-center gap-[10px] px-[40px] py-[10px] bg-gradient-to-t from-[#599AFF] to-[#4577FB] text-white rounded-[15px] text-[15px]">
-            <ClockIcon />
-            <span>{data.workingHours}</span>
-          </div>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 grid-rows-[repeat(3,55px)] gap-x-[10px] gap-y-[10px] mt-[50px] max-md:grid-cols-1">
-        {data.services.map((service) => (
-          <div key={service + Math.random()} className="flex py-[10px] px-[20px] gap-x-[10px] h-[53px] items-center shadow-[0px_4px_10px_-2px_rgba(0,0,0,.2)] rounded-[20px]">
-            <img src={service.icon} alt="icon" className="w-[30px] rounded-full" />
-            <p>{service.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.textContainer}>
+          <Image source={{ uri: data?.icon?.route }} style={styles.image} />
+          <Text style={styles.name}>{data?.name}</Text>
+        </View>
+        <Text style={styles.description}>{data?.description}</Text>
+      </View>
+      <View style={styles.infoContainer}>
+        <View style={styles.infoBox}>
+          <Ionicons name="call-outline" style={styles.infoBoxIcon} />
+          <Text style={styles.infoBoxText}>
+            {data?.phone ? data.phone : "+0 (000) 000 00 00"}
+          </Text>
+        </View>
+        <View style={styles.infoBox}>
+          <Ionicons name="time-outline" style={styles.infoBoxIcon} />
+          <Text style={styles.infoBoxText}>{`${formatTimeString(
+            data?.modeFrom
+          )} - ${formatTimeString(data?.modeTo)}`}</Text>
+        </View>
+      </View>
+      {data?.services?.length > 0 && (
+        <View style={styles.servicesContainer}>
+          {data.services.map((service) => (
+            <View key={service.name} style={styles.serviceItem}>
+              {service.image && (
+                <Image
+                  source={{ uri: service.image }}
+                  style={styles.serviceIcon}
+                />
+              )}
+              <Text style={styles.serviceText}>{service.name}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+    marginHorizontal: 5,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    gap: 15,
+  },
+  header: {
+    flexDirection: "column",
+  },
+  textContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  image: {
+    width: 100,
+    aspectRatio: "1/1",
+    borderRadius: 100,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: "600",
+  },
+  description: {
+    fontSize: 14,
+    fontWeight: "500",
+    marginTop: 10,
+    color: "#999",
+  },
+  infoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  infoBox: {
+    width: "48%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#599AFF",
+    borderRadius: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    gap: 5,
+  },
+  infoBoxIcon: {
+    fontSize: 16,
+    color: "#fefefe",
+  },
+  infoBoxText: {
+    fontSize: 12,
+    color: "#fefefe",
+  },
+
+  servicesContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    gap: 5,
+  },
+  serviceItem: {
+    width: "48%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#599AFF",
+    borderRadius: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  serviceIcon: {
+    width: 30,
+    aspectRatio: "1",
+    borderRadius: 15,
+    marginRight: 10,
+  },
+  serviceText: {
+    fontSize: 12,
+    color: "#fefefe",
+  },
+})
 
 export default RestaurantBriefInfo

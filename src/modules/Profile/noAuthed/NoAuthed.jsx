@@ -1,8 +1,9 @@
-import React from "react"
 import { StyleSheet, View, Text } from "react-native"
-import { Button } from "@rneui/base"
 import { useNavigation } from "@react-navigation/native"
-import { NAVIGATIONS } from "@tabNavigation/Navigation.config"
+
+import { NAVIGATIONS } from "@navigation/Navigation.config"
+
+import { Button } from "@rneui/base"
 import { LinearGradient } from "expo-linear-gradient"
 
 const NoAuthed = () => {
@@ -25,7 +26,7 @@ const NoAuthed = () => {
           end: { x: 1, y: 0.5 },
         }}
         onPress={() => {
-          navigation.navigate(NAVIGATIONS.Authorization.login)
+          navigation.navigate(NAVIGATIONS.Profile.AuthStack.login)
         }}
       />
     </View>
@@ -39,9 +40,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
     gap: 10,
-		backgroundColor: "white",
-		marginTop: 10,
-		borderRadius: 8,
+    backgroundColor: "white",
+    marginTop: 10,
+    borderRadius: 8,
   },
   textStyle: {
     fontSize: 20,

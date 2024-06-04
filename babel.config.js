@@ -8,7 +8,7 @@ module.exports = function (api) {
         {
           root: ["./src"],
           alias: {
-            "@tabNavigation": "./src/tabNavigation",
+            "@navigation": "./src/navigation",
             "@layout": "./src/shared/layout",
             "@components": "./src/components",
             "@modules": "./src/modules",

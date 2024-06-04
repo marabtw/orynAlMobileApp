@@ -1,77 +1,76 @@
+import { useContext } from "react"
+import { View, Text, Pressable, StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import { useContext, useRef } from "react"
-import { View, Text, Pressable } from "react-native"
-import { UIContext } from "../../app/Context/UIContext"
-import styled from "styled-components/native"
-// [
-// 	{
-// 		action: "удалить",
-// 		onClick: () => {},
-// 	},
-// 	{
-// 		action: "посмотреть",
-// 		to: "/",
-// 		id,
-// 	}
-// ]
+
+import { UIContext } from "@context/UIContext"
 
 const ContextMenu = ({ menuActions = [] }) => {
-  const { setOpenedContextMenuIndex } = useContext(UIContext)
   const navigation = useNavigation()
+  const { setOpenedContextMenuIndex } = useContext(UIContext)
+
+  const closeContextMenuFunction = () => {
+    setOpenedContextMenuIndex(null)
+  }
 
   return (
-    <Container>
+    <View style={styles.container}>
       {menuActions.map((menuAction) =>
         menuAction.hasOwnProperty("to") ? (
           <Pressable
-            key={menuAction.action + `${Math.random() * 99999999}`}
+            key={menuAction.action + Math.random() * 99999999}
             onPress={() => {
               navigation.navigate(menuAction.to, { id: menuAction.id })
-              setOpenedContextMenuIndex(null)
+              closeContextMenuFunction()
             }}
-            style={{ paddingVertical: 5 }}
+            style={({ pressed }) => [
+              styles.pressable,
+              { backgroundColor: pressed ? "#ebebeb" : "transparent" },
+            ]}
           >
-            {({ pressed }) => (
-              <Text style={{ color: pressed ? "#ff0000" : "#000" }}>
-                {menuAction.action}
-              </Text>
-            )}
+            <Text style={styles.text}>{menuAction.action}</Text>
           </Pressable>
         ) : (
           <Pressable
-            key={menuAction.action + `${Math.random() * 99999999}`}
+            key={menuAction.action + Math.random() * 99999999}
             onPress={() => {
               menuAction.onPress()
-              setOpenedContextMenuIndex(null)
+              closeContextMenuFunction()
             }}
-            style={{ minWidth: 100, paddingVertical: 5 }}
+            style={({ pressed }) => [
+              styles.pressable,
+              { backgroundColor: pressed ? "#ebebeb" : "transparent" },
+            ]}
           >
-            {({ pressed }) => (
-              <Text style={{ color: pressed ? "#ff0000" : "#000" }}>
-                {menuAction.action}
-              </Text>
-            )}
+            <Text style={styles.text}>{menuAction.action}</Text>
           </Pressable>
         )
       )}
-    </Container>
+    </View>
   )
 }
 
-const Container = styled.View`
-  position: absolute;
-  top: 0;
-  right: -15px;
-  transform: translate(-30px, 30px);
-  flex-direction: column;
-  width: 150px;
-  padding: 10px 10px;
-  border-width: 2px;
-  border-color: #ebebeb;
-  border-radius: 5px;
-  background-color: white;
-  z-index: 50;
-  flex: 1;
-`
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    top: 0,
+    right: -15,
+    transform: [{ translateX: -30 }, { translateY: 30 }],
+    flexDirection: "column",
+    width: 150,
+    padding: 10,
+    borderWidth: 2,
+    borderColor: "#ebebeb",
+    borderRadius: 5,
+    backgroundColor: "white",
+    zIndex: 50,
+  },
+  pressable: {
+    minWidth: 100,
+    paddingVertical: 5,
+  },
+  text: {
+    color: "#000",
+  },
+})
 
 export default ContextMenu

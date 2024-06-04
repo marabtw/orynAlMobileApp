@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./src",
     "paths": {
-      "@tabNavigation/*": ["tabNavigation/*"],
+      "@navigation/*": ["navigation/*"],
       "@layout/*": ["shared/layout/*"],
       "@modules/*": ["modules/*"],
       "@components/*": ["components/*"],

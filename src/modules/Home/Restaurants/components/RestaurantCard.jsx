@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigation } from "@react-navigation/native"
 import {
   View,
   Text,
@@ -8,30 +9,16 @@ import {
   BackHandler,
 } from "react-native"
 
-import { useNavigation } from "@react-navigation/native"
-import { LinearGradient } from "expo-linear-gradient"
+import { NAVIGATIONS } from "@navigation/Navigation.config"
 
-import { Ionicons } from "@ui/icons/icons"
+import { LinearGradient } from "expo-linear-gradient"
 import { Button } from "@rneui/base"
-import { NAVIGATIONS } from "@tabNavigation/Navigation.config"
+import { Ionicons } from "@ui/icons/icons"
+import RatingStard from "@components/RatingStars/RatingStars"
 
 const RestaurantCard = ({ restaurant }) => {
   const navigation = useNavigation()
   const [selected, setSelected] = useState(false)
-
-  useEffect(() => {
-    const onBackPressInRestaurants = () => {
-      navigation.navigate(NAVIGATIONS.Home)
-      return true
-    }
-
-    BackHandler.addEventListener("hardwareBackPress", onBackPressInRestaurants)
-
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", onBackPressInRestaurants)
-  }, [navigation])
-
-  const restaurantId = 0
 
   const toggleFavorite = () => {
     setSelected((prev) => !prev)
@@ -69,20 +56,11 @@ const RestaurantCard = ({ restaurant }) => {
           aspectRatio: 1,
           borderRadius: 100,
         }}
-        source={{ uri: "" }}
+        source={{ uri: restaurant.icon.route }}
       />
-      <Text style={{ fontSize: 16, fontWeight: "600" }}>Salam Bro</Text>
-      {/* <Rating
-        ratingColor="#f1c4"
-        imageSize={30}
-        readonly
-        startingValue={2}
-        // type="custom"
-        // tintColor="#fff"
-        // ratingBackgroundColor="#ccc"
-        style={styles.rating}
-      /> */}
-      <Text style={{ fontSize: 9 }}>Улица Аль Фараби 32</Text>
+      <Text style={{ fontSize: 16, fontWeight: "600" }}>{restaurant.name}</Text>
+      <RatingStard rate={restaurant.rate} size={14} />
+      <Text style={{ fontSize: 9 }}>{restaurant.address}</Text>
       <Button
         title="ЗАБРОНИРОВАТЬ"
         titleStyle={{ fontWeight: "bold", fontSize: 9 }}
@@ -102,45 +80,17 @@ const RestaurantCard = ({ restaurant }) => {
           end: { x: 1, y: 0.5 },
         }}
         onPress={() => {
-          navigation.navigate(NAVIGATIONS.Orders.createOrder, { restaurantId })
+          navigation.navigate(NAVIGATIONS.Main.OrdersStack.createOrder, {
+            restaurant: {
+              id: restaurant.id,
+              icon: restaurant.icon.route,
+              name: restaurant.name,
+            },
+          })
         }}
       />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "white",
-    padding: 10,
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 8,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 10,
-  },
-  rating: {
-    marginTop: 10,
-  },
-  description: {
-    fontSize: 14,
-    color: "#666",
-    marginTop: 10,
-  },
-  button: {
-    marginTop: 10,
-    backgroundColor: "#007BFF",
-  },
-})
 
 export default RestaurantCard
