@@ -17,12 +17,6 @@ const SearchScreen = () => {
 
   return (
     <Layout>
-		<ToastManager
-        duration={2000}
-        textStyle={{ fontSize: 14 }}
-        height={40}
-        positionValue={10}
-      />
       <ScrollView>
         <Search />
       </ScrollView>

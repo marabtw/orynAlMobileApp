@@ -1,7 +1,5 @@
 import { createContext, useState } from "react"
 
-import Loading from "@components/Loading/Loading"
-
 const UIContext = createContext(null)
 
 const UIContextProvider = ({ children }) => {
@@ -14,15 +12,13 @@ const UIContextProvider = ({ children }) => {
     openedContextMenuIndex,
     setOpenedContextMenuIndex,
     setIsLoading,
+    isLoading,
     recentRestaurantsSliderTrigger,
     setRecentRestaurantsSliderTrigger,
   }
 
   return (
-    <UIContext.Provider value={contextValue}>
-      {isLoading && <Loading />}
-      {children}
-    </UIContext.Provider>
+    <UIContext.Provider value={contextValue}>{children}</UIContext.Provider>
   )
 }
 

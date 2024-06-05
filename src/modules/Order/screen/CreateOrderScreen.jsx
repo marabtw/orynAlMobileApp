@@ -8,8 +8,6 @@ import Layout from "@layout/Layout"
 import CreateOrder from "../CreateOrder/CreateOrder"
 import RestaurantDetails from "../RestaurantDetails/RestaurantDetails"
 
-import ToastManager from "toastify-react-native"
-
 const CreateOrderScreen = ({ route }) => {
   const { restaurant } = route.params
   const { setRecentRestaurantsSliderTrigger } = useContext(UIContext)
@@ -42,12 +40,6 @@ const CreateOrderScreen = ({ route }) => {
 
   return (
     <Layout>
-		<ToastManager
-        duration={2000}
-        textStyle={{ fontSize: 14 }}
-        height={40}
-        positionValue={10}
-      />
       <ScrollView>
         <RestaurantDetails restaurantId={restaurant.id} />
         <CreateOrder restaurantId={restaurant.id} />

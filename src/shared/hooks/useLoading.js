@@ -2,11 +2,11 @@ import { useContext } from "react"
 import { UIContext } from "@context/UIContext"
 
 export const useLoading = () => {
-  const { setIsLoading } = useContext(UIContext)
+  const { setIsLoading, isLoading } = useContext(UIContext)
 
-  const setLoading = (isLoading) => {
-    setIsLoading(isLoading)
+  const setLoading = (status) => {
+    setIsLoading(status)
   }
 
-  return setLoading
+  return [isLoading, setLoading];
 }

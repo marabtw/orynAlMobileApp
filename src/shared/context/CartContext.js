@@ -64,7 +64,7 @@ export const CartContextProvider = ({ children }) => {
   }
 
   const setTableIdToCart = ({ tableId, restaurantId }) => {
-		console.log(tableId)
+    console.log(tableId)
     if (cartData.restaurantId < 0) {
       setCartData({
         tableId: tableId,
@@ -138,20 +138,65 @@ export const CartContextProvider = ({ children }) => {
     }
   }
 
-  const createOrder = () => {
-    if (!isOrderValid()) {
-      showNotification("Вы не выбрали", "warning")
+  const increase = (foodId) => {
+    const isFoodInCart = cartData.foods.some((item) => item.id === foodId)
+    if (isFoodInCart) {
+      setCartData((prev) => ({
+        ...prev,
+        foods: prev.foods.map((food) => {
+          if (food.id === foodId) {
+            const newAmount = food.amount + 1
+            return {
+              ...food,
+              amount: newAmount,
+              itemTotalPrice: food.price * newAmount,
+            }
+          } else {
+            return { ...food }
+          }
+        }),
+      }))
+    } else {
+      showNotification("Такой еды нету в корзине", "warning")
+    }
+  }
+
+  const decrease = (foodId) => {
+    let needFilter = false
+    const updatedCart = cartData.foods.map((food) => {
+      if (food.id === foodId) {
+        const newAmount = food.amount - 1
+        if (newAmount > 0) {
+          needFilter = false
+          return {
+            ...food,
+            amount: newAmount,
+            itemTotalPrice: food.price * newAmount,
+          }
+        } else {
+          needFilter = true
+          return null
+        }
+      }
+      return food
+    })
+    if (needFilter) {
+      setCartData((prev) => {
+        return { ...prev, foods: updatedCart.filter((order) => order !== null) }
+      })
       return
     }
+    setCartData((prev) => {
+      return { ...prev, foods: updatedCart }
+    })
+  }
 
-    const currentDate = new Date()
-    const formattedDate = currentDate.toISOString().split(".")[0] + "Z"
-
-    const formattedDataForCreateOrder = {
-      ...cartData,
-      foods: cartData.foods.map((food) => food.id),
-      date: formattedDate,
+  const createOrder = () => {
+    if (!isOrderValid()) {
+      showNotification("Корзина не валидна", "warning")
+      return
     }
+		console.log(cartData)
 
     createByUserOrder(formattedDataForCreateOrder)
       .then(() => {
@@ -202,6 +247,8 @@ export const CartContextProvider = ({ children }) => {
         setFoodForCart,
         setDateAndTimeToCart,
         setTableIdToCart,
+        increase,
+        decrease,
       }}
     >
       {children}

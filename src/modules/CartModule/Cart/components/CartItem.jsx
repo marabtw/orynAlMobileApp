@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from "react-native"
 import { Ionicons } from "@ui/icons/icons"
-const CartItem = () => {
+
+const CartItem = ({ data, increase, decrease }) => {
   return (
     <View
       style={{
@@ -11,8 +12,6 @@ const CartItem = () => {
         flexDirection: "row",
         gap: 5,
         alignItems: "center",
-        // borderWidth: 1,
-        // borderColor: "rgba(0,0,0,0.1)",
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
@@ -21,9 +20,9 @@ const CartItem = () => {
       }}
     >
       <Image
+        source={{ uri: data?.photo?.route }}
         style={{
-          // width: "20%",	
-					height: "100%",
+          height: 50,
           aspectRatio: 1,
           backgroundColor: "#ddd",
           borderRadius: 100,
@@ -36,13 +35,12 @@ const CartItem = () => {
           justifyContent: "center",
         }}
       >
-        <Text style={{ fontSize: 16, fontWeight: 700 }}>Фирменный салат</Text>
+        <Text style={{ fontSize: 16, fontWeight: 700 }}>{data?.name}</Text>
         <View
           style={{
             flex: 1,
             flexDirection: "row",
             justifyContent: "space-between",
-            // alignItems: "center",
           }}
         >
           <Text
@@ -53,7 +51,7 @@ const CartItem = () => {
               marginTop: 2,
             }}
           >
-            3000 ₸
+            {data?.itemTotalPrice} ₸
           </Text>
           <View
             style={{
@@ -71,10 +69,15 @@ const CartItem = () => {
                 overflow: "hidden",
                 padding: 2,
               }}
+              onPress={() => {
+                increase(data.id)
+              }}
             >
               <Ionicons name="add" size={16} />
             </TouchableOpacity>
-            <Text style={{ fontSize: 16, fontWeight: "400" }}>0</Text>
+            <Text style={{ fontSize: 16, fontWeight: "400" }}>
+              {data.amount}
+            </Text>
             <TouchableOpacity
               style={{
                 borderRadius: 30,
@@ -82,10 +85,17 @@ const CartItem = () => {
                 aspectRatio: 1,
                 overflow: "hidden",
                 padding: 2,
+                borderColor: data.amount === 1 ? "#b3b3b3" : "black",
+              }}
+              onPress={() => {
+                decrease(data.id)
               }}
             >
-              {/* <Ionicons name="trash-outline" size={20} /> */}
-              <Ionicons name="remove" size={16} />
+              {data.amount === 1 ? (
+                <Ionicons name="trash" size={16} color={"#b3b3b3"} />
+              ) : (
+                <Ionicons name="remove" size={16} />
+              )}
             </TouchableOpacity>
           </View>
         </View>

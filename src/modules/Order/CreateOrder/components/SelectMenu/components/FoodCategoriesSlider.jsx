@@ -14,7 +14,7 @@ const FoodCategoriesSlider = ({ categories, getCategory }) => {
           aspectRatio: 1,
           borderWidth: 1,
           borderColor: "#c4c4c4",
-          borderRadius: 10,
+          borderRadius: 20,
           shadowColor: "rgba(0,0,0,.2)",
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: 1,
@@ -42,7 +42,7 @@ const FoodCategoriesSlider = ({ categories, getCategory }) => {
             resizeMode="cover"
           />
         </View>
-        <Text style={{ fontSize: 16, fontWeight: "800", lineHeight: 24 }}>
+        <Text style={{ fontSize: 12, fontWeight: "800", lineHeight: 16 }}>
           Все
         </Text>
       </TouchableOpacity>
@@ -83,7 +83,7 @@ const FoodCategoriesSlider = ({ categories, getCategory }) => {
               resizeMode="cover"
             />
           </View>
-          <Text style={{ fontSize: 16, fontWeight: "800", lineHeight: 24 }}>
+          <Text style={{ fontSize: 12, fontWeight: "800", lineHeight: 16 }}>
             {category}
           </Text>
         </TouchableOpacity>

@@ -13,7 +13,7 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
         alignItems: "center",
         justifyContent: "space-between",
         width: "40%",
-        height: 200,
+        // height: 200,
         borderRadius: 20,
         backgroundColor: "#FFFFFF",
         borderWidth: 1,
@@ -61,7 +61,15 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
           },
         }}
       />
-      <View style={{ flexDirection: "column", gap: 10, width: "100%", alignItems: "center"}}>
+      <View
+        style={{
+          flexDirection: "column",
+          gap: 5,
+          width: "100%",
+          alignItems: "center",
+          marginVertical: 5,
+        }}
+      >
         <Text
           style={{
             fontSize: 16,
@@ -94,7 +102,7 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
             style={{
               justifyContent: "center",
               alignItems: "center",
-              width: 50,
+              width: 30,
               aspectRatio: 1,
               backgroundColor: "#b91c1c",
               borderRadius: 999,
@@ -123,7 +131,7 @@ const FoodCard = ({ foodData = {}, getFoodForCart, selectedFoodsId = [] }) => {
               getFoodForCart({
                 id: foodData.id,
                 amount: 1,
-                image: foodData.image ? foodData.image : "",
+                photo: foodData.photo ? foodData.photo : { route: "" },
                 name: foodData.name,
                 price: foodData.price,
                 itemTotalPrice: foodData.price,
